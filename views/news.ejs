@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <link rel="stylesheet" href="../public/css/news.css">
+</head>
+<body>
+<div class="container">
+    <h1>News</h1>
+
+    <div id="newsResults" class="news-container">
+        <% articles.forEach((article, index) => { %>
+            <div class="news-item">
+                <h2><%= article.title %></h2>
+                <p class="source">Source: <%= article.source %></p>
+                <p class="author">Author: <%= article.author ? article.author : 'Unknown' %></p>
+                <p class="description">Description: <%= article.description %></p>
+                <div class="content-container" id="content<%= index %>">
+                    <p class="content-truncated">truncateContent<%= (article.content) %></p>
+                    <p class="read-more" onclick="toggleContent('<%= index %>')">Read more</p>
+                    <p class="full-content" style="display: none;"><%= article.content %></p>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<footer style="position: fixed; bottom: 0; right: 0; padding: 10px;">
+    <p>© Rakhat Ospanov, SE-2201</p>
+</footer>
+
+<script src="../public/js/news.js"></script>
+</body>
+</html>

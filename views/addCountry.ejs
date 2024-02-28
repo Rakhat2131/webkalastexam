@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Country</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+</head>
+<body>
+<h1>Add New Country</h1>
+<form action="/admin/countries/add" method="POST">
+    <label for="countryName">Country Name:</label>
+    <input type="text" id="countryName" name="countryName" required>
+    <label for="lat">Latitude:</label>
+    <input type="text" id="lat" name="lat" required>
+    <label for="lng">Longitude:</label>
+    <input type="text" id="lng" name="lng" required>
+    <button type="submit">Add Country</button>
+</form>
+
+<footer style="position: fixed; bottom: 0; right: 0; padding: 10px;">
+    <p>© Rakhat Ospanov, SE-2201</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:b="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Countries</title>
+    <link rel="stylesheet" href="../public/css/home.css">
+</head>
+<body>
+    <h1>Admin Panel - Countries</h1>
+    <a href="/admin/countries/add">Add New Country</a>
+    <ul>
+        <% countries.forEach(country => { %>
+            <li>
+                <%= country.countryName %>
+                <form action="/admin/countries/delete/<%= country.countryName %>" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <footer style="position: fixed; bottom: 0; right: 0; padding: 10px;">
+        <p>© Rakhat Ospanov, SE-2201</p>
+    </footer>
+</body>
+</html>
