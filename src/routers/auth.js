@@ -14,5 +14,8 @@ router.get('/register', (req, res) => {
 });
 router.post('/register', Register);
 
+router.get('/quiz', (req, res) => {
+    res.render('quiz'); // Adjust the template name if needed
+});
 
 module.exports = router;

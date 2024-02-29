@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Quiz</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        #quiz-container {
+            text-align: center;
+            background-color: rgba(46, 48, 162, 0.816);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #question-container p {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        #options-container {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        #options-container input {
+            margin-right: 5px;
+        }
+
+        #timer {
+            color: white;
+            margin-top: 10px;
+        }
+
+        #submit-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #result-container {
+            display: none;
+            color: white;
+            margin-top: 20px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="font-weight: bold;">Country Quiz</h1>
+</header>
+
+<main>
+    <div id="quiz-container">
+        <div id="question-container"></div>
+        <div id="options-container"></div>
+        <p id="timer"></p>
+        <button id="submit-btn" style="display: none;" onclick="submitQuiz()">Submit</button>
+        <div id="result-container" style="display: none;"></div>
+    </div>
+</main>
+
+<footer>
+    <p>© Rakhat Ospanov, SE-2201</p>
+</footer>
+
+<script>
+        const questions = [
+        {
+            question: 'What is the capital of France?',
+            options: ['Paris', 'Berlin', 'London', 'Madrid'],
+            correctAnswer: 'Paris'
+        },
+        {
+            question: 'Which country is known as the Land of the Rising Sun?',
+            options: ['China', 'Japan', 'South Korea', 'Vietnam'],
+            correctAnswer: 'Japan'
+        },
+        // Add more questions as needed
+    ];
+
+    let currentQuestionIndex = 0;
+    let timerSeconds = 60; // Set the timer duration in seconds
+    let timerInterval;
+
+    function startQuiz() {
+        showQuestion();
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function showQuestion() {
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestion = questions[currentQuestionIndex];
+
+        questionContainer.innerHTML = `<p>${currentQuestion.question}</p>`;
+
+        optionsContainer.innerHTML = currentQuestion.options.map(option => `
+            <input type="radio" name="answer" value="${option}" id="${option}">
+            <label for="${option}">${option}</label><br>
+        `).join('');
+
+        document.getElementById('submit-btn').style.display = 'block';
+    }
+
+    function updateTimer() {
+        const timerElement = document.getElementById('timer');
+        timerElement.textContent = `Time remaining: ${timerSeconds}s`;
+
+        if (timerSeconds === 0) {
+            submitQuiz();
+        } else {
+            timerSeconds--;
+        }
+    }
+
+    function submitQuiz() {
+        clearInterval(timerInterval);
+
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        const resultContainer = document.getElementById('result-container');
+
+        if (selectedOption) {
+            const userAnswer = selectedOption.value;
+            const correctAnswer = questions[currentQuestionIndex].correctAnswer;
+
+            if (userAnswer === correctAnswer) {
+                resultContainer.innerHTML = '<p>Correct! Well done!</p>';
+            } else {
+                resultContainer.innerHTML = `<p>Incorrect. The correct answer is ${correctAnswer}.</p>`;
+            }
+        } else {
+            resultContainer.innerHTML = '<p>Please select an answer.</p>';
+        }
+
+        resultContainer.style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+
+    window.onload = startQuiz;
+</script>
+
+</body>
+</html>
